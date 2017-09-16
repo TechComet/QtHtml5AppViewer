@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style type="text/css">
+            body { margin: 0; font-size: 2em; background-color: white; }
+            h1 { text-align: center; color: red; }
+            h1 + h1 { color: green; }
+            h1:last-child { color: blue; }
+            #framewindow { background-color: gray; color: white; font-weight: bold; display: block; text-align: right; }
+        </style>
+        <script type="text/javascript">
+            var counter = 0;
+            function toggleElement()
+            {
+                var elements = document.getElementsByTagName('h1');
+                for (var i = 0; i < elements.length; ++i)
+                    elements[i].style.display = (counter % elements.length) == i ? '' : 'none';
+                counter++;
+                setTimeout('toggleElement()', 1000);
+            }
+            window.onload = function()
+            {
+                document.getElementById("quit").onmousedown = function()
+                {
+                    App.quit();
+                };
+
+                document.getElementById("maximum").onmousedown = function()
+                {
+                    if (!Qt.is_maximized) {
+                        Qt.showMaximized();
+                        Qt.is_maximized = true;
+                    } else {
+                        Qt.showNormal();
+                        Qt.is_maximized = false;
+                    }
+                }
+
+                document.getElementById("minimum").onmousedown = function()
+                {
+                    Qt.showMinimized();
+                }
+
+
+                toggleElement();
+            }
+        </script>
+    </head>
+    <body>
+        <div id="framewindow"><span id="minimum">-</span>  <span id="maximum">+</span>  <span id="quit">X</span></div>
+        <h1>Hello</h1>
+        <h1>HTML5</h1>
+        <h1>World</h1>
+    </body>
+
+
+    <script src="qrc:/qwebchannel.js"></script>
+    <script>
+        var Qt;
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+            // now you retrieve your object
+            App = channel.objects.CoreApplication;
+            Qt = channel.objects.QtWindow;
+        });
+    </script>
+</html>
