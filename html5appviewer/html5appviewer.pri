@@ -6,10 +6,10 @@
 
 QT       += widgets webenginewidgets
 
-SOURCES = $$PWD/html5appviewer.cpp
+SOURCES += $$PWD/html5appviewer.cpp
 
-HEADERS = $$PWD/html5appviewer.h
+HEADERS += $$PWD/html5appviewer.h
 
-RESOURCES = $$PWD/html5appviewer.qrc
+RESOURCES += $$PWD/html5appviewer.qrc
 
 INCLUDEPATH += $$PWD
